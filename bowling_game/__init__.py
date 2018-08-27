@@ -156,7 +156,7 @@ class BowlingFrame:
 
     def get_dict(self):
         return {'score': self.score, 'throw_scores': self.throw_scores if self.last_frame else self.throw_scores[0:2],
-                'strike': self.is_strike(), 'spare': self.is_spare()}
+                'strike': self.is_strike(), 'spare': self.is_spare(), 'throws_done': self.throws_done}
 
     def __str__(self):
         return 'Scores: {}; Total: {}; Throws done: {}; Finished: {}; Strike: {}; Spare: {}'\

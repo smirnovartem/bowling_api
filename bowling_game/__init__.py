@@ -41,6 +41,7 @@ class BowlingGame:
     def throw(self, count):
         assert self.started, 'The game is not started'
         assert not self.finished, 'The game is finished'
+        assert isinstance(count, int), 'The parameter is not an integer'
         assert 0 <= count <= self.MAX_PINS, 'Invalid number of pins knocked down '+str(count)
 
         frame_finished = self.boards[self.current_player].throw(count)
@@ -88,6 +89,7 @@ class BowlingScoreBoard:
         return self.score
 
     def throw(self, count):
+        assert isinstance(count, int), 'The parameter is not an integer'
         assert 0 <= count <= BowlingGame.MAX_PINS, 'Invalid number of pins knocked down '+str(count)
         assert self.current_frame_num < BowlingGame.MAX_FRAME_COUNT, 'The game is finished'
         assert not self.finished, 'The game is finished'
@@ -156,7 +158,8 @@ class BowlingFrame:
 
     def get_dict(self):
         return {'score': self.score, 'throw_scores': self.throw_scores if self.last_frame else self.throw_scores[0:2],
-                'strike': self.is_strike(), 'spare': self.is_spare(), 'throws_done': self.throws_done}
+                'strike': self.is_strike(), 'spare': self.is_spare(),
+                'throws_done': self.throws_done, 'last_frame': self.last_frame}
 
     def __str__(self):
         return 'Scores: {}; Total: {}; Throws done: {}; Finished: {}; Strike: {}; Spare: {}'\
@@ -182,6 +185,7 @@ class BowlingFrame:
         Parameters:
             count   Number of pins knocked down
         :type count: int"""
+        assert isinstance(count, int), 'The parameter is not an integer'
         count_error_msg = 'Invalid number of pins knocked down: {}'.format(count)
         assert 0 <= count <= BowlingGame.MAX_PINS, count_error_msg
         assert not self.finished, 'Unable to throw during finished frame'

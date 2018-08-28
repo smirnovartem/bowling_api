@@ -2,6 +2,7 @@ from bowling_app import games
 from bowling_game import BowlingGame
 from bowling_app.bowling_helpers_function import abort_if_game_not_found, game_actions
 from flask_restful import Resource, abort, reqparse
+from werkzeug.exceptions import BadRequest
 
 
 class NewGame(Resource):
@@ -23,9 +24,12 @@ class GameAction(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('action', type=str)
         parser.add_argument('num_pins', type=int)
-        args = parser.parse_args()
-        if args['action'] in game_actions:
-            return game_actions[args['action']](game_id, args)
-        else:
-            abort(400, message='No action chosen' if args['action'] is None
-                                else 'Unknown action: {}'.format(args['action']))
+        try:
+            args = parser.parse_args()
+            if args['action'] in game_actions:
+                return game_actions[args['action']](game_id, args)
+            else:
+                abort(400, message='No action chosen' if args['action'] is None
+                                    else 'Unknown action: {}'.format(args['action']))
+        except BadRequest as e:
+            abort(400, message=str(e))

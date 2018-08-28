@@ -136,7 +136,7 @@ function getGameScore(game_id) {
 		}
 	})
 	.fail(function(data) {
-		console.log(data.message);
+		console.log(data.responseJSON.message);
 	});
 }
 
@@ -146,15 +146,18 @@ function updateGameScore(data) {
 
 			var scores = data.game.scores[player_index];
 			
+			// Highlight current player
 			if (data.game.current_player == player_index) $(x).addClass('frame_row_current');
 			else $(x).removeClass('frame_row_current');
 			
+			// Update total frame scores
 			$.each($(x).find('.frame_score'), function(frame_index, y) {
 				if (frame_index <= scores.current_frame_num) {
 					$(y).text(scores.frames[frame_index].score);
 				}
 			});
 			
+			// Update scores in each individual try
 			$.each($(x).find('.frame_table'), function(frame_index, y) {
 				if (frame_index <= scores.current_frame_num) {
 					
@@ -183,8 +186,6 @@ function updateGameScore(data) {
 						else {
 							captions = [throw_scores[0],throw_scores[1], '-'];
 						}
-						
-						
 					}
 					
 					var cond = (frame_data.last_frame == false) && (frame_data.strike == true);
@@ -196,7 +197,8 @@ function updateGameScore(data) {
 					
 				}
 			});
-
+			
+			// Update total score
 			$(x).find('.total_score').text(data.game.scores[player_index].score);
 			
 		}

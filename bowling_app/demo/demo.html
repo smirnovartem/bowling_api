@@ -7,9 +7,12 @@
 	<body>
 		<input type="button" id="new_game" onclick="createNewGame(); return false;" value="New game"/>
 		<input type="button" id="start_game" value="Start game" style="display: none"/>
-		<br>
-		<input type="text" id="num_pins_input" />
-		<input type="button" id="throw_ball" value="Throw!" />
+		<input type="button" id="add_player" value="Add player" style="display: none"/>
+		<br><br>
+		<div id="throw_ball_input" style="display: none">
+			<input type="text" id="num_pins_input" />
+			<input type="button" id="throw_ball" value="Throw!" />
+		</div>
 		<br>
 	</body>
 </html>

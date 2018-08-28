@@ -5,6 +5,10 @@ table, tr, th, td, .player_num, .total_score {
 	margin: 0 !important;
 }
 
+td {
+	text-align: center;
+}
+
 .player_num, .total_score {
 	width: 50px;
 }
@@ -41,4 +45,9 @@ table, tr, th, td, .player_num, .total_score {
 
 .game_table_header {
 	height: 50px !important;
+	background-color: #e0e0e0;
+}
+
+.frame_row_current {
+	background-color: #e0e0ff;
 }

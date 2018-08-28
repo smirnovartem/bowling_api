@@ -1,5 +1,11 @@
 class BowlingGame:
-    """
+    """A bowling game
+    Attributes:
+        boards              A list of boards (length should be equal to num_players)
+        num_players         Number of players in the game
+        current_player      Index of the current player
+        started             A flag to check if this game is started
+        finished            A flag to check if this game is finished
     """
     MAX_FRAME_COUNT = 10
     MAX_PINS = 10
@@ -46,6 +52,7 @@ class BowlingGame:
 
         frame_finished = self.boards[self.current_player].throw(count)
 
+        # Switch the turn to the next player if the frame is finished
         if frame_finished:
             self.current_player += 1
             self.current_player = self.current_player % self.num_players
@@ -56,8 +63,12 @@ class BowlingGame:
 
 
 class BowlingScoreBoard:
-    """
-
+    """A score board in a bowling game for a single player
+    Attributes:
+        frames              A list of frames of the game
+        current_frame_num   An index of the current frame
+        score               Total score of this scoreboard
+        finished            A flag to check if this game is finished
     """
     def __init__(self):
 
@@ -78,12 +89,8 @@ class BowlingScoreBoard:
 
     def get_dict(self):
         frames_dicts = list(map(lambda x: x.get_dict(), self.frames))
-        return {'score': self.score, 'current_frame_num': self.current_frame_num, \
+        return {'score': self.score, 'current_frame_num': self.current_frame_num,
                 'frames': frames_dicts, 'finished': self.finished}
-
-    def __str__(self):
-        return 'Score: '+str(self.score)+'; Current: '+str(self.current_frame_num)+\
-               '; Frames info('+str(list(map(str,self.frames)))+'); Finished: '+str(self.finished)
 
     def current_score(self):
         return self.score
@@ -98,6 +105,7 @@ class BowlingScoreBoard:
         self.score += count
         self.apply_bonus_score(count)
 
+        # Switch the turn to the next frame and check if the game is finished
         if self.get_current_frame().finished:
             self.current_frame_num += 1
             if self.current_frame_num >= BowlingGame.MAX_FRAME_COUNT:
@@ -161,11 +169,6 @@ class BowlingFrame:
                 'strike': self.is_strike(), 'spare': self.is_spare(),
                 'throws_done': self.throws_done, 'last_frame': self.last_frame}
 
-    def __str__(self):
-        return 'Scores: {}; Total: {}; Throws done: {}; Finished: {}; Strike: {}; Spare: {}'\
-            .format(self.throw_scores, self.score, self.throws_done,
-                    self.finished, self.is_strike(), self.is_spare())
-
     def is_strike(self):
         return self.throw_scores[0] == BowlingGame.MAX_PINS
 
@@ -179,7 +182,6 @@ class BowlingFrame:
     def is_last_frame(self):
         return self.last_frame
 
-
     def throw(self, count):
         """Throw a ball
         Parameters:
@@ -190,6 +192,7 @@ class BowlingFrame:
         assert 0 <= count <= BowlingGame.MAX_PINS, count_error_msg
         assert not self.finished, 'Unable to throw during finished frame'
 
+        # Define if the number of pins knocked down is possible
         if self.throws_done == 1 and not self.is_strike():
             assert count <= BowlingGame.MAX_PINS - self.throw_scores[0], count_error_msg
 
@@ -201,6 +204,7 @@ class BowlingFrame:
         self.score += count
         self.throws_done += 1
 
+        # Check if the frame is finished
         finish_ordinary_frame = not self.last_frame and (self.is_strike() or self.throws_done == 2)
 
         finish_last_frame = self.last_frame and \

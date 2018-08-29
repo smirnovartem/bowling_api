@@ -3,10 +3,10 @@ This project implements a simple REST API to control bowling games usin [Flask](
 
 ## Project contents
 
-* `bowling_game` package implements bowling logic
-* `tests/bowling_game_tests.py` contains some unit test for `BowlingGame` class from `bowling_game` package
-* `bowling_app` package implements API to create and control bowling games
-* `bowling_run.py` is used to run the API server
+* [`bowling_game`](/bowling_game/__init__.py) package implements bowling logic
+* [`tests/bowling_game_tests.py`](/tests/bowling_game_tests.py) contains some unit test for `BowlingGame` class from `bowling_game` package
+* [`bowling_app`](/bowling_app) package implements API to create and control bowling games
+* [`bowling_run.py`](/bowling_run.py) is used to run the API server
 
 ## Installation and execution
 Install the requirements for the project:

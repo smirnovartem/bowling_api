@@ -1,10 +1,10 @@
 # Bowling API
-This project implements a simple REST API to control bowling games usin [Flask](http://flask.pocoo.org/docs/1.0/) and [Flask-RESTFul](https://flask-restful.readthedocs.io/en/latest/index.html).
+This project implements a simple REST API to control bowling games using [Flask](http://flask.pocoo.org/docs/1.0/) and [Flask-RESTFul](https://flask-restful.readthedocs.io/en/latest/index.html).
 
 ## Project contents
 
 * [`bowling_game`](/bowling_game/__init__.py) package implements bowling logic
-* [`tests/bowling_game_tests.py`](/tests/bowling_game_tests.py) contains some unit test for `BowlingGame` class from `bowling_game` package
+* [`tests/bowling_game_tests.py`](/tests/bowling_game_tests.py) contains unit tests for `BowlingGame` class from `bowling_game` package
 * [`bowling_app`](/bowling_app) package implements API to create and control bowling games
 * [`bowling_run.py`](/bowling_run.py) is used to run the API server
 
@@ -18,19 +18,19 @@ To run the server execute the following command:
 
 ```python bowling_run.py```
 
-After that API is available on `localhost:5000` by default
+After that API is by default available on `localhost:5000`
 
 ## Demo
 A simple demo that demonstrates an API usage is available on `localhost:5000/demo` (after the server is run) or in [`bowling_app/demo/demo.html`](/bowling_app/demo/demo.html)
-It is a simple UI that allows to start bowling games, add players and to specify a number of pins that was knocked down.
-The UI in turn requests the game data from the server every two seconds.
+It is a simple UI that allows to start bowling games, add players and specify a number of pins that were knocked down.
+The UI requests the game data from the server every two seconds.
 
 
 ## API description
 ### Create a new game
 `POST` request to `/games`.
 
-Successful response is a JSON object: `{"game_id": <game_id>}`.
+If a request is successful, the response is a JSON object: `{"game_id": <game_id>}`.
 
 Example:
 ```
@@ -52,10 +52,10 @@ $ curl http://localhost:5000/games -X POST -v
 * Closing connection 0
 ```
 
-### Get game standings
+### Get game status
 `GET` request to `/games/<game_id>`.
 
-A successful response contains the data about the game: total scores and scores in each frame.
+The response to a successful request contains data about the game: total scores and scores in each frame.
 
 Example:
 ```
@@ -103,7 +103,7 @@ $ curl http://localhost:5000/games/0 -d "action=add_player" -X PUT
 ### Start the game
 `PUT` request to `/games/<game_id>` with request data `action=start`.
 
-Starts the existing game, meaning that no more players can be added and a ball can be thrown.
+Starts an existing game, meaning that no more players can be added and a ball can be thrown.
 
 Example:
 ```

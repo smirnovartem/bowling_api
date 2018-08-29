@@ -21,7 +21,7 @@ To run the server execute the following command:
 After that API is available on `localhost:5000` by default
 
 ## Demo
-A simple demo that demonstrates an API usage is available on `localhost:5000/demo` (after the server is run) or in `bowling_app/demo/demo.html`
+A simple demo that demonstrates an API usage is available on `localhost:5000/demo` (after the server is run) or in [`bowling_app/demo/demo.html`](/bowling_app/demo/demo.html)
 It is a simple UI that allows to start bowling games, add players and to specify a number of pins that was knocked down.
 The UI in turn requests the game data from the server every two seconds.
 
